@@ -35,5 +35,3 @@ jobs:
             bundle config path vendor/bundle
             bundle install --jobs 4 --retry 3
             bundle exec danger --danger_id=check_style --dangerfile=Dangerfile
-          environment:
-            DANGER_GITHUB_API_TOKEN: 196d4d92ee6f63e0fe15d44844a11ab915a0f613
