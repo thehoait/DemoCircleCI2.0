@@ -21,10 +21,17 @@ jobs:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
-          name: Run Tests
-          command: ./gradlew lint test
+          name: Run Detekt
+          command: ./gradlew clean detekt
       - store_artifacts:
           path: app/build/reports
           destination: reports
       - store_test_results:
           path: app/build/test-results
+      - run:
+          name: Report github
+          command: |
+            gem install bundle
+            bundle config path vendor/bundle
+            bundle install --jobs 4 --retry 3
+            bundle exec danger --danger_id=check_style --dangerfile=Dangerfile
